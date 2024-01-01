@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import getReadingTime from 'reading-time';
+
+const { entry } = Astro.props;
+const time = new Date(entry.data.pubDate);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+const author = await getEntry(entry.data.author)
+---
+
+<article class="flex gap-2 items-center">
+  <div class="w-4/6">
+    <div class="flex justify-start items-center text-sm gap-1 font-semibold mb-1">
+      <a href={`/blog/author/${author.id}`} class="flex items-center">
+        <figure class="w-6 h-6 rounded-full bg-gray-200 mr-2 overflow-hidden">
+          <img src={author?.data?.avatar} class="object-cover rounded-full" alt={`${author.data.name} profile`} />
+        </figure>
+      </a>
+      <div class="inline">
+        <a href={`/blog/author/${author.id}`}">
+          {author?.data?.name}
+        </a>
+        <span class="text-gray-500 dark:text-gray-400">in</span>
+        <a href={`/blog/topic/${entry.data.topic.toLowerCase()}`}>
+          {entry.data.topic}
+        </a>
+      </div>
+    </div>
+    <a href={`/blog/${entry.slug}`}>
+      <h2 class="font-extrabold text-xl tracking-tight mb-1">{entry.data.title}</h2>
+      <p class="text-gray-600 dark:text-gray-400 hidden md:block">{entry.data.subTitle}</p>
+    </a>
+    <div class="mt-2 flex gap-2 items-center">
+      <p class="text-sm text-gray-500">{`${time.getDate()} ${months[time.getMonth()]} ${time.getFullYear()}`}</p>
+      <p>&centerdot;</p>
+      <p class="text-sm text-gray-500">{getReadingTime(entry.body).text}</p>
+      <p class="hidden md:block">&centerdot;</p>
+      <a href={`/blog/tag/${entry.data.tags[0].toLowerCase()}`} class="hidden md:block text-sm rounded-xl bg-gray-200 text-gray-600 py-1 px-3 dark:text-gray-400 dark:bg-gray-700">{entry.data.tags[0]}</a>
+    </div>
+  </div>
+  <div class="w-2/6">
+    <div class="w-full h-32 rounded">
+      <Image src={entry.data.image.src} alt={entry.data.image.alt} class="object-cover rounded w-full h-full" width="300" />
+    </div>
+  </div>
+</article>
