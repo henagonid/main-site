@@ -10,7 +10,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 		return !data.draft;
 	})
   
-  const tags = blogEntries.map(entry => entry.data.tags);
   blogEntries.reverse();
 	return paginate(blogEntries, {
 		pageSize: 8

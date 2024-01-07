@@ -1,17 +1,16 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import markdoc from '@astrojs/markdoc';
-
-import { remarkReadingTime } from './remark-reading-time.mjs';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), markdoc()],
+  site: 'https://henagon.id',
+  integrations: [tailwind(), markdoc(), sitemap()],
   markdown: {
-  //   remarkPlugins: [remarkReadingTime],
     shikiConfig: {
       theme: 'dracula',
-      wrap: true,
+      wrap: false,
     }
   }
 });

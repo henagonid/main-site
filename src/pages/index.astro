@@ -1,4 +1,31 @@
 ---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+
+const posts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+})
+posts.reverse();
+const latestPosts = posts.slice(0, 4);
 ---
 
-Hello
+<MainLayout>
+  <h1 class="text-center font-bold text-3xl my-10">henagon</h1>
+  <div class="w-full flex items-center justify-center flex-col py-10 h-full">
+    <h2 class="mb-8">Latest blog posts</h2>
+    <ul class="grid grid-cols-4 w-3/4 gap-4 flex-1">
+    {latestPosts.map(post => (
+      <li>
+        <a href={`/blog/${post.slug}`}>
+          <div>
+            <Image src={post.data.image.src} alt={post.data.image.alt} height="200" class="rounded-t h-30 object-cover mb-2" />
+            <h3 class="font-bold">{post.data.title}</h3>
+            <p class="text-xs">{post.data.subTitle}</p>
+          </div>
+        </a>
+      </li>
+    ))}
+    </ul>
+  </div>
+</MainLayout>

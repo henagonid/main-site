@@ -27,68 +27,84 @@ const author = await getEntry(entry.data.author)
 
 <BlogLayout title={entry.data.title}>
 	<div class="flex w-full items-center flex-col">
-		<!-- <article class="w-full md:w-11/12 my-4 flex"> -->
 		<article class="w-full md:w-11/12 my-4 grid gap-6 grid-cols-1 lg:grid-cols-4">
-			<!-- <div class="w-3/4"> -->
-				<header class="lg:col-span-3">
-					<h1 class="font-black text-4xl my-1 text-black dark:text-white">{entry.data.title}</h1>
-					{entry.data.subTitle ? <h2 class="mb-6 mt-2 text-gray-500 dark:text-gray-400 text-xl">{entry.data.subTitle}</h2> : null}
-					<div class="flex items-center gap-4 my-2">
-						<div class="w-10 h-10 rounded-full bg-sky-300 overflow-hidden">
-							<img src={author.data.avatar} alt={`profile of ${author.data.name}`} class="rounded-full object-cover" />
-						</div>
+			<header class="lg:col-span-3">
+				<h1 class="font-black text-4xl my-1 text-black dark:text-white">{entry.data.title}</h1>
+				{entry.data.subTitle ? <h2 class="mb-6 mt-2 text-gray-500 dark:text-gray-400 text-xl">{entry.data.subTitle}</h2> : null}
+				<div class="flex items-center gap-4 my-2">
+					<div class="w-10 h-10 rounded-full bg-sky-300 overflow-hidden">
+						<img src={author.data.avatar} alt={`profile of ${author.data.name}`} class="rounded-full object-cover" />
+					</div>
+					<div>
 						<div>
-							<div>
-								<a href={`/blog/author/${author.id}`}>
-									{author.data.name}
-								</a>
-							</div>
-							<div class="text-gray-500 text-sm flex gap-2">
-								<span>Published in <a href={`/blog/topic/${entry.data.topic.toLowerCase()}`} class="text-black dark:text-white">{entry.data.topic}</a></span>
-								<span>&centerdot;</span>
-								<span>{getReadingTime(entry.body).text}</span>
-								<span>&centerdot;</span>
-								<span>{time.getDate()} {months[time.getMonth()]} {time.getFullYear()}</span>
-							</div>
+							<a href={`/blog/author/${author.id}`}>
+								{author.data.name}
+							</a>
 						</div>
-					</div>
-					<hr class="mt-8 mb-4 dark:border-gray-600" />
-				</header>
-				<div class="hidden lg:block"></div>
-				<div class="lg:col-span-3">
-					<div class="mb-10">
-						<Image src={entry.data.image.src} alt={entry.data.image.alt} class="rounded object-cover" />
-					</div>
-					<div class="prose prose-xl dark:prose-invert prose-p:font-serif prose-ul:font-serif prose-img:rounded prose-img:object-cover my-4 prose-p:text-gray-800 prose-p:leading-8 dark:prose-p:text-gray-100 prose-strong:font-bold prose-code:text-red-600 dark:prose-code:text-red-500 prose-h2:text-2xl prose-h2:mb-1 prose-h3:text-xl prose-h3:mb-1 prose-h3:font-bold">
-						<Content />
-					</div>
-					<div class="my-10 flex flex-wrap gap-2 dark:text-gray-300 text-sm">
-						{entry.data.tags.map(tag => 
-							<a href={`/blog/tag/${tag.toLowerCase()}`} class="py-2 px-4 rounded-3xl bg-gray-200 dark:bg-gray-700">{tag}</a>
-						)}
-					</div>
-				</div>
-			<!-- </div> -->
-				<div class="relative w-full">
-					<div class="lg:sticky w-full space-y-6 lg:top-0">
-						<div class="w-full rounded-xl border border-gray-300 py-6 px-6">
-							<p class="font-semibold">On this page</p>
-							<ul>
-							{headings ? headings.map(heading => 
-								<li class="my-2"><a href={`#${heading.slug}`}">{heading.text}</a></li>
-							) : null}
-							</ul>
-						</div>
-						<div class="w-full rounded-xl border border-gray-300 py-6 px-6">
-							<p class="font-semibold">More Topics</p>
-				      <div class="flex flex-wrap gap-2 mt-3 text-sm dark:text-gray-300">
-				        {topics.map(topic => 
-				          <a href={`/blog/topic/${topic.toLowerCase()}`} title={`kategori ${topic.toLowerCase()}`} class="rounded-3xl bg-gray-200 py-2 px-4 dark:bg-gray-700">{topic}</a>
-				        )}
-				      </div>
+						<div class="text-gray-500 text-sm flex gap-2">
+							<span>Published in <a href={`/blog/topic/${entry.data.topic.toLowerCase()}`} class="text-black dark:text-white">{entry.data.topic}</a></span>
+							<span>&centerdot;</span>
+							<span>{getReadingTime(entry.body).text}</span>
+							<span>&centerdot;</span>
+							<span>{time.getDate()} {months[time.getMonth()]} {time.getFullYear()}</span>
 						</div>
 					</div>
 				</div>
+				<hr class="mt-8 mb-4 dark:border-gray-600" />
+			</header>
+			<div class="hidden lg:block"></div>
+			<div class="lg:col-span-3">
+				<div class="mb-10">
+					<Image src={entry.data.image.src} alt={entry.data.image.alt} class="rounded object-cover" />
+				</div>
+				<div class="prose prose-xl dark:prose-invert prose-p:font-serif prose-ul:font-serif prose-img:rounded prose-img:object-cover my-4 prose-p:text-gray-800 prose-p:leading-8 dark:prose-p:text-gray-100 prose-strong:font-bold prose-code:text-red-600 dark:prose-code:text-red-500 prose-h2:text-2xl prose-h2:mb-1 prose-h3:text-xl prose-h3:mb-1 prose-h3:font-bold">
+					<Content />
+				</div>
+				<div class="my-10 flex flex-wrap gap-2 dark:text-gray-300 text-sm">
+					{entry.data.tags.map(tag => 
+						<a href={`/blog/tag/${tag.toLowerCase()}`} class="py-2 px-4 rounded-3xl bg-gray-200 dark:bg-gray-700">{tag}</a>
+					)}
+				</div>
+			</div>
+			<div class="relative w-full">
+				<div class="lg:sticky w-full space-y-6 lg:top-0">
+					<div class="w-full rounded-xl border border-gray-300 py-6 px-6">
+						<p class="font-semibold">On this page</p>
+						<ul>
+						{headings ? headings.map(heading => 
+							<li class="my-2"><a href={`#${heading.slug}`}">{heading.text}</a></li>
+						) : null}
+						</ul>
+					</div>
+					<div class="w-full rounded-xl border border-gray-300 py-6 px-6">
+						<p class="font-semibold">More Topics</p>
+			      <div class="flex flex-wrap gap-2 mt-3 text-sm dark:text-gray-300">
+			        {topics.map(topic => 
+			          <a href={`/blog/topic/${topic.toLowerCase()}`} title={`kategori ${topic.toLowerCase()}`} class="rounded-3xl bg-gray-200 py-2 px-4 dark:bg-gray-700">{topic}</a>
+			        )}
+			      </div>
+					</div>
+				</div>
+			</div>
 		</article>
+		<section class="w-full">
+		
+		</section>
+		<script src="https://giscus.app/client.js"
+      data-repo="henagonid/site-comment"
+      data-repo-id="R_kgDOLAj_Mw"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOLAj_M84CcLlm"
+      data-mapping="url"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="transparent_dark"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+		</script>
 	</div>
 </BlogLayout>
