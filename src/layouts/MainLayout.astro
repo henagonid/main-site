@@ -1,3 +1,9 @@
+---
+import GTMBody from "../components/GTMBody.astro";
+import GTMHead from "../components/GTMHead.astro";
+
+---
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -5,9 +11,10 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<title>HENAGON.ID</title>
+		<title>henagon</title>
 		<meta name="description" content='Temukan tips dan pengetahuan seputar software development' />
 		<link rel="sitemap" href="/sitemap-index.xml" />
+		<GTMHead />
 		<style is:global>
 		@font-face {
 			font-family: 'Geist';
@@ -35,6 +42,7 @@
 		</style>
 	</head>
 	<body class="antialiased">
+		<GTMBody />
 		<div class="w-full flex items-start justify-center bg-white dark:bg-gray-900 dark:text-gray-200 min-h-screen">
 			<div class="w-10/12 h-full">
 				<div class="mt-8">
